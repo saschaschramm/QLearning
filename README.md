@@ -21,6 +21,7 @@ RIGHT = 2
 UP = 3
 ```
 
+
 The ice is slippery, so the agent won't always move in the 
 direction it intends. The probability of moving in the intended direction is 1/3.
 

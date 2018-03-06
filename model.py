@@ -14,6 +14,7 @@ class Model():
         self.optimize = optimizer.minimize(loss)
         self.session = tf.Session()
         self.session.run(tf.global_variables_initializer())
+        
 
     def predict_q(self, observation):
         actions, q = self.session.run([self.predict_action, self.q_out], feed_dict={self.inputs: [observation]})
