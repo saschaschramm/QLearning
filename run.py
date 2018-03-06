@@ -58,7 +58,6 @@ def main():
                 target_q[0, action] = reward + discount_rate * np.max(next_q)
 
             model.train(observation, target_q)
-
             total_reward += reward
             observation = next_observation
 

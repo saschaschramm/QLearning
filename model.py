@@ -2,7 +2,6 @@ import tensorflow as tf
 
 class Model():
     def __init__(self, observation_space, action_space):
-
         self.inputs = tf.placeholder(shape=[1], dtype=tf.int32)
         self.q_out = tf.layers.dense(inputs=tf.one_hot(self.inputs, observation_space), units=action_space, activation=None)
 
