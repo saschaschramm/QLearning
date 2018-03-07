@@ -25,6 +25,10 @@ UP = 3
 The ice is slippery, so the agent won't always move in the 
 direction it intends. The probability of moving in the intended direction is 1/3.
 
+### Q-learning
+We learn a action-value function Q that approximates the optimal action-value function.
+A non-linear function approximator is used to estimate the 
+action-value function. Here we use a neural network as a function approximator. 
 <!--
 ### Q-learning
 
