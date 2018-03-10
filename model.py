@@ -4,13 +4,10 @@ class Model():
     def __init__(self, observation_space, action_space):
         self.inputs = tf.placeholder(shape=[1], dtype=tf.int32)
         self.q_values = tf.layers.dense(inputs=tf.one_hot(self.inputs, observation_space), units=action_space, activation=None)
-
         self.actions = tf.argmax(self.q_values, axis=1)
         self.next_q = tf.placeholder(shape=[1, action_space], dtype=tf.float32)
-
         loss = tf.reduce_sum(tf.squared_difference(self.next_q, self.q_values))
         optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.1)
-
         self.optimize = optimizer.minimize(loss)
         self.session = tf.Session()
         self.session.run(tf.global_variables_initializer())
