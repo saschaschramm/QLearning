@@ -13,7 +13,6 @@ from model import Model
 4000 0.407
 4500 0.442
 """
-
 class ExplorationScheduler:
     def __init__(self, timesteps, start_prob, end_prob):
         self.timesteps = timesteps
