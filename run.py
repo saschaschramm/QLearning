@@ -35,13 +35,11 @@ def main():
     discount_rate = .99
     num_episodes = 1000
     total_rewards = []
-
     exploration = ExplorationScheduler(timesteps=num_episodes, start_prob=0.1, end_prob=0.02)
 
     for episode in range(num_episodes):
         observation = env.reset()
         total_reward = 0
-
         while True:
             action, target_q_value = model.predict_action(observation)
 
