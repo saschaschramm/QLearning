@@ -43,21 +43,20 @@ def main():
         total_reward = 0
 
         while True:
-            action, target_q = model.predict_action(observation)
-            epsilon = exploration.value(episode)
+            action, target_q_value = model.predict_action(observation)
 
-            if random.random() < epsilon:
+            if random.random() < exploration.value(episode):
                 action = env.action_space.sample()
 
             next_observation, reward, done, info = env.step(action)
 
             if done:
-                target_q[0, action] = reward
+                target_q_value[0, action] = reward
             else:
-                next_q = model.predict_q(next_observation)
-                target_q[0, action] = reward + discount_rate * np.max(next_q)
+                next_q_value = model.predict_q(next_observation)
+                target_q_value[0, action] = reward + discount_rate * np.max(next_q_value)
 
-            model.train(observation, target_q)
+            model.train(observation, target_q_value)
             total_reward += reward
             observation = next_observation
 
@@ -69,6 +68,10 @@ def main():
             print("{} {}".format(episode, score))
 
         total_rewards.append(total_reward)
+
+    for i in range(16):
+        foo = model.predict_q(i)
+        print(foo)
 
 if __name__ == "__main__":
     main()
