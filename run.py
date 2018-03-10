@@ -3,16 +3,8 @@ import numpy as np
 import random
 import tensorflow as tf
 from model import Model
+from gym.envs.registration import register
 
-"""
-1500 0.269
-2000 0.361
-2500 0.359
-3000 0.4
-3500 0.41
-4000 0.407
-4500 0.442
-"""
 class ExplorationScheduler:
     def __init__(self, timesteps, start_prob, end_prob):
         self.timesteps = timesteps
@@ -24,7 +16,17 @@ class ExplorationScheduler:
         return self.start_prob + fraction * (self.end_prob - self.start_prob)
 
 def main():
-    env = gym.make('FrozenLake-v0')
+    register(
+        id='FrozenLakeNotSlippery-v0',
+        entry_point='gym.envs.toy_text:FrozenLakeEnv',
+        kwargs={'map_name': '4x4', 'is_slippery': False}
+    )
+
+    env = gym.make('FrozenLakeNotSlippery-v0')
+
+    performance_num_episodes = 200
+    save_summary_steps = 100
+
     env.seed(0)
     tf.set_random_seed(0)
     random.seed(0)
@@ -60,8 +62,8 @@ def main():
             if done == True:
                 break
 
-        if episode % 500 == 0 and episode > 1000:
-            score = sum(total_rewards[-1000:]) / 1000.0
+        if episode % save_summary_steps == 0 and episode > performance_num_episodes:
+            score = sum(total_rewards[-performance_num_episodes:]) / performance_num_episodes
             print("{} {}".format(episode, score))
 
         total_rewards.append(total_reward)
