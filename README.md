@@ -1,13 +1,14 @@
-# Introduction
+# Q-learning
+
+## Introduction
 Q-learning is a model-free reinforcement learning algorithm. 
 
-# Q-learning
 A policy is a sequence of state-action pairs. An action-value function ```Q```
 assigns values to these state-action pairs. Q-learning is a method to learn an 
 action-value function by directly approximating the optimal action-value function. A
 neural network can be used as a function approximator.
 
-# Environment
+## Environment
 We use FrozenLake as an environment. The agent starts at S with the goal to
 move to G. The agent can walk over the frozen surface F and needs to avoid
 holes H:
@@ -21,8 +22,8 @@ DOWN = 1
 RIGHT = 2
 UP = 3
 ```
-# Results
-The learned actions using the action-value function after 1000 iterations:
+## Results
+Learned actions using the action-value function after 1000 iterations:
 
 ![alt text](images/grid_actions.png).
 
