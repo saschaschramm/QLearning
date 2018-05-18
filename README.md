@@ -23,6 +23,27 @@ DOWN = 1
 RIGHT = 2
 UP = 3
 ```
+
+## Q-learning
+The Q-learning implementation is based on [Q-learning](http://www.gatsby.ucl.ac.uk/~dayan/papers/cjch.pdf).
+
+## Q-network
+The Q-network implementation is based on [Playing Atari with Deep Reinforcement Learning](https://arxiv.org/pdf/1312.5602.pdf).
+
+
+A neural network is used as a function approximator to estimate the action-value function
+
+``` python
+action_values = tf.layers.dense(inputs=tf.one_hot(self.inputs, observation_space), units=action_space, activation=None).
+```
+
+The network can be trained by minimising the loss function
+
+``` python
+loss = tf.squared_difference(reward + discount_rate * np.max(next_action_values), action_values).
+```
+
+
 ## Results
 Learned actions using the action-value function after 1000 iterations:
 
