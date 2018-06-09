@@ -14,7 +14,7 @@ We use FrozenLake as an environment. The agent starts at S with the goal to
 move to G. The agent can walk over the frozen surface F and needs to avoid
 holes H:
 
-![alt text](images/grid_states.png).
+![alt text](images/grid_states2.png).
 
 The agent can take 4 possible actions:
 ```
@@ -45,6 +45,6 @@ loss = tf.squared_difference(reward + discount_rate * np.max(next_action_values)
 
 
 ## Results
-Learned actions using the action-value function after 1000 iterations:
+Learned actions using the action-value function after 4000 iterations:
 
-![alt text](images/grid_actions.png).
+![alt text](images/grid_actions2.png).

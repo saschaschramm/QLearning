@@ -21,7 +21,6 @@ def main():
         while True:
             action, target_action_values = network.predict_action(observation)
 
-
             if random.random() < exploration.value(episode):
                 action = env.action_space.sample()
 
@@ -31,8 +30,8 @@ def main():
             if done:
                 target_action_values[action] = reward
             else:
-                next_action_values = network.predict_action_value(next_observation)
-                target_action_values[action] = reward + discount_rate * np.max(next_action_values)
+                best_action_values = np.max(network.predict_action_value(next_observation))
+                target_action_values[action] = reward + discount_rate * best_action_values
 
             network.train(observation, [target_action_values])
             observation = next_observation

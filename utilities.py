@@ -11,7 +11,6 @@ class ExplorationScheduler:
         fraction = min(float(t) / self.timesteps, 1.0)
         return self.start_prob + fraction * (self.end_prob - self.start_prob)
 
-
 def init_env():
     register(
         id='FrozenLakeNotSlippery-v0',
@@ -22,7 +21,6 @@ def init_env():
     env = gym.make('FrozenLakeNotSlippery-v0')
     env.seed(0)
     return env
-
 
 class StatsRecorder():
 
