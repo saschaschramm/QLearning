@@ -22,23 +22,27 @@ def init_env():
     env.seed(0)
     return env
 
+
 class StatsRecorder():
 
-    def __init__(self, summary_steps, performance_num_episodes):
+    def __init__(self, summary_frequency, performance_num_episodes):
         self.total_rewards = []
-        self.summary_steps = summary_steps
+        self.summary_frequency = summary_frequency
         self.performance_num_episodes = performance_num_episodes
         self.total_reward = 0
         self.num_episodes = 0
 
-    def after_step(self, reward, done):
+    def print_score(self, i):
+        score = sum(self.total_rewards[-self.performance_num_episodes:]) / self.performance_num_episodes
+        print("{} {}".format(i, score))
+
+    def after_step(self, reward, done, i):
         self.total_reward += reward
+
+        if i % self.summary_frequency == 0:
+            self.print_score(i)
+
         if done:
-            if self.num_episodes % self.summary_steps == 0 and self.num_episodes > self.performance_num_episodes:
-                score = sum(self.total_rewards[-self.performance_num_episodes:]) / self.performance_num_episodes
-                print("{} {}".format(self.num_episodes, score))
-
             self.num_episodes += 1
-
             self.total_rewards.append(self.total_reward)
             self.total_reward = 0
