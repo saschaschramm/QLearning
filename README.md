@@ -34,15 +34,19 @@ The Q-network implementation is based on [Playing Atari with Deep Reinforcement 
 A neural network is used as a function approximator to estimate the action-value function
 
 ``` python
-action_values = tf.layers.dense(inputs=tf.one_hot(self.inputs, observation_space), units=action_space, activation=None).
+def action_value_function(inputs, action_space, scope):
+    with tf.variable_scope(scope):
+        hidden = tf.layers.dense(inputs=inputs, units=64, activation=tf.nn.relu)
+        output = tf.layers.dense(inputs=hidden, units=action_space, activation=None)
+        return output
 ```
 
 The network can be trained by minimising the loss function
 
 ``` python
-loss = tf.squared_difference(reward + discount_rate * np.max(next_action_values), action_values).
+td_errors = selected_action_values - action_values_target
+losses = huber_loss(td_errors)
 ```
-
 
 ## Results
 Learned actions using the action-value function after 4000 iterations:
